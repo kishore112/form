@@ -3,13 +3,17 @@
 <x-slot name="header">
 </x-slot>
 <!DOCTYPE html>
-<head></head>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
 <body>
 <div class="container">
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of Form </h2>
+                <h2>Form List </h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('form.create') }}"> Create New Form</a>
@@ -48,16 +52,9 @@
             <td>{{ $frm->degree }}</td>
             <td>{{ $frm->state }}</td>
             <td>{{ $frm->city }}</td>
+         <td>{{$frm->hobbies}}</td>
            
-            <td>@php
-    $values = explode(",",$frm->hobbies);
-@endphp
-
-@if(in_array("$frm->hobbies", $values)) 
-    {{ strtoupper($frm->hobbies) }}                          
-@endif </td>
-           
-            <td><img src={{ url('public/storage/.$frm->image')}}></td>
+            <td><img src={{ url('/images/form/'.$frm->image) }}></td>
               <td>  <form action="{{ route('form.destroy',$frm->id) }}" method="post">
               @csrf
         {{ method_field('DELETE') }}

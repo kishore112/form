@@ -6,7 +6,8 @@
 <html>
 <head>
     <title></title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -33,11 +34,11 @@ class="form-horizontal" enctype="multipart/form-data">
           <div class="col-md-12">
              <label for="gender" class= "col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
           <div class="form-check form-check-inline" >
-                                <input class="form-check-input" type="radio" name="gander" value="1">
+                                <input class="form-check-input" type="radio" name="gander" value="M">
                                 <label class="form-check-label" for="male">Male</label>
                             </div>
          <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gander" value="2">
+                                <input class="form-check-input" type="radio" name="gander" value="F">
                                 <label class="form-check-label" for="female">Female</label>
                             </div>
             </div>
@@ -52,28 +53,31 @@ class="form-horizontal" enctype="multipart/form-data">
 <div class="form-group">      
 <label>Hobby you Like</label>
         <input type="checkbox" name="hobbies[]" value="Playing" {{ in_array('Playing', $hobbies) ? 'checked' : '' }}">Playing <br/>
-        <input type="checkbox" name="hobbies[]" value="reading" {{ in_array('Reading', $hobbies) ? 'checked' : '' }}" > Reading <br/>
+        <input type="checkbox" name="hobbies[]" value="Reading" {{ in_array('Reading', $hobbies) ? 'checked' : '' }}" >Reading <br/>
         <input type="checkbox" name="hobbies[]" value="writing" {{ in_array('Writing', $hobbies) ? 'checked' : '' }}" >Writing  <br/>
-        <input type="checkbox" name="hobbies[]" value="listening" {{ in_array('Listening', $hobbies) ? 'checked' : '' }}" >listening  <br/>
+        <input type="checkbox" name="hobbies[]" value="listening" {{ in_array('Listening', $hobbies) ? 'checked' : '' }}">Listening  <br/>
         <input type="checkbox" name="hobbies[]" value="drawing" {{ in_array('drawing', $hobbies) ? 'checked' : '' }}" >Drawing  <br/>
  </div> 
 
  <div class="form-group">      
               <label for="address">Address:</label>  
-              <input type="text" class="form-control" name="address" value="{{ $form->address }}"/>  
+              <textarea class="form-control" id="address" name="address" > {{ $form->address }}</textarea>
           </div>  
  
-<div class="form-group">      
-              <label for="state">State:</label>  
-              <input type="text" class="form-control" name="state" value="{{$form->state}}"/>  
+          <div class="form-group"> 
+          <select name="state" id="state" class="form-control forms-input">
+    <option value="">Select State</option>
+    @foreach ($state as $key=>$value)
+    <option value="{{ $key }}"{{ ( $form->state == $key ) ? ' selected' : '' }}>{{ $value }}</option>
+    @endforeach
+</select>
+
           </div>  
  
-
-<div class="form-group">      
-              <label for="city">City:</label> 
-              <input type="text" class="form-control" name="city" value="{{$form->city}}">  
+          <div class="form-group">      
+              <label for="city">city:</label>  
+ <input type="text" class="form-control" name="city" value="{{$form->city}}">
           </div>  
-
 
 <div class="form-group">      
               <label for="degree">Degree:</label>  

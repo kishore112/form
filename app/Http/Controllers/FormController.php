@@ -16,10 +16,8 @@ class FormController extends Controller
     public function index()
     {
      $form = Form::all();
-    // $hobbies = Forms::find($hobbies);
-
-        return view('form.index',compact('form'));
-    }
+     return view('form.index', compact('form'));
+     }
     public function create()
     {
         $form = new Form();
@@ -27,10 +25,7 @@ class FormController extends Controller
     }
     public function store(Request $request)
     {
-    // echo 1; exit;
-      
-    
-     $form = new Form();     
+      $form = new Form();     
         $form->name = $request->input('name');
         $form->mobile = $request->input('mobile');
         $form->email = $request->input('email');
@@ -38,10 +33,11 @@ class FormController extends Controller
         $form->degree = $request->input('degree');
         $form->gender = $request->input('gender') == 'true' ? 'Male' : 'Female';
         $form->state = $request->input('state');
-       $form->city = $request->input('city');
+        $form->city = $request->input('city');
        $hobbies = implode(',',$request->input('hobbies'));
+      
         $form->hobbies =$hobbies;
- 
+       
         if($request->has('image')) {
             $image = $request->file('image');
             $filename = $image->getClientOriginalName();
@@ -58,8 +54,9 @@ class FormController extends Controller
         $form = Form::findorfail($id);
         return view('form.edit', [
             'form' => $form,
-            'hobbies' => explode(',', $form->hobbies)
-        ]);
+            'hobbies' => explode(',', $form->hobbies),
+            'state'   =>['Tamil Nadu','Kerela','Gujarat','Delhi'],
+            ]);
     }
    
     public function update(Request $request,$id)
@@ -74,8 +71,8 @@ class FormController extends Controller
         $form->degree = $request->input('degree');
         $form->gender = $request->input('gender') == 'true' ? 'Male' : 'Female';
         $form->state = $request->input('state');
-       $form->city = $request->input('city');
-       $hobby = $request->has('hobbies');
+        $form->city = $request->input('city');
+         $hobby = $request->has('hobbies');
      
         $form->hobbies = $hobby;
        
@@ -89,7 +86,7 @@ class FormController extends Controller
 
         $form->update();
       
-        return redirect()->back()->with('status','Form Updated Successfully');
+        return redirect()->route('form.index')->with('success','Form Updated Successfully');
     }
    
         public function destroy($id)

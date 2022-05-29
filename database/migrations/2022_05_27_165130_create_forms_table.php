@@ -23,7 +23,6 @@ class CreateFormsTable extends Migration
             $table->string('address');
             $table->string('degree')            ;
             $table->string('state');
-            $table->string('city');
             $table->string('hobbies');
             $table->timestamps();
         });
